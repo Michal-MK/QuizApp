@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package questions;
+
+service QuestionService {
+  rpc GetQuestionStream (QuestionRequest) returns (stream QuestionStreamResponse) {}
+  rpc SendAnswer (AnswerRequest) returns (AnswerResponse) {}
+  rpc Disconnect (DisconnectRequest) returns (DisconnectResponse) {}
+  rpc Connect (ConnectRequest) returns (ConnectResponse) {}
+}
+
+message QuestionRequest {
+
+}
+
+message QuestionStreamResponse {
+  int32 id = 1;
+  string question = 2;
+  QuestionType question_type = 3;
+  string author = 4;
+  string hint = 5;
+  string imageBase64 = 6;
+  string answer = 7;
+  string multichoiceAnswers = 8;
+  int32 multichoiceAnswersCorrectIndex = 9;
+  string category = 10;
+  int32 jeopardyWeight = 11;
+}
+
+message AnswerRequest {
+  int32 questionId = 1;
+  string clientUuid = 2;
+  string clientName = 3;
+  string answer = 4;
+}
+
+message AnswerResponse {
+
+}
+
+message ConnectRequest {
+  string name = 1;
+}
+
+message ConnectResponse {
+  string uuid = 1;
+}
+
+message DisconnectRequest {
+  string uuid = 1;
+}
+
+message DisconnectResponse {
+
+}
+
+enum QuestionType {
+  text = 0;
+  number = 1;
+  multipleChoice = 2;
+  trueFalse = 3;
+  location = 4;
+}
+

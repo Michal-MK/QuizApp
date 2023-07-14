@@ -1,0 +1,33 @@
+{
+    "files.exclude": {
+        "**/quiz.iml": true,
+        "**/pubspec.lock": true,
+        "**/.metadata": true,
+        "**/.flutter-*": true,
+        "**/ios/**": true,
+        "**/macos/**": true,
+        "**/web/**": true,
+        "**/.dart_tool/**": true,
+        "**/.idea/**": true,
+        "**/build/**": true,
+        "**/linux/**": true,
+        "**/windows/**": true,
+        "**/analysis_options.yaml": true,
+        
+        "**/.gitignore": true,
+        "**/README.md": true,
+        "**/fonts": true,
+    },
+    "cSpell.words": [
+        "Comms",
+        "cupertino",
+        "Debet",
+        "Forex",
+        "LTRB",
+        "microtask",
+        "openapi"
+    ],
+    "cSpell.language": "en,cs",
+
+    "workbench.tree.indent": 20,
+}
