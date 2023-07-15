@@ -17,8 +17,9 @@ class LocationQuestionContent extends BaseQuestionContent {
           placeholder: 'Enter your LatLon coordinates here',
           maxLines: 1
         ),
+        const SizedBox(height: 8),
         Button(
-          child: const Text('Get Location'),
+          child: const Text('Validate Location'),
           onPressed: () async {
             String text = vm.geolocationAnswerController.text;
             List<String> latlon = text.split(',');

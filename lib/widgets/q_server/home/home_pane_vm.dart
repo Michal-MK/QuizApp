@@ -5,7 +5,7 @@ import 'package:quiz/model/question_service.dart';
 import 'package:quiz/proto_gen/questions.pb.dart';
 
 class HomePaneVM extends ChangeNotifier {
-  Question? get activeQuestion => questions.length > _currentQIndex ? questions[_currentQIndex] : null;
+  Question? get activeQuestion => questions.length > currentQIndex ? questions[currentQIndex] : null;
 
   List<String> connectedClients = [];
 
@@ -13,16 +13,24 @@ class HomePaneVM extends ChangeNotifier {
 
   bool hintVisible = false;
 
-  int _currentQIndex = 0;
-  set currentQIndex(int value) {
-    if (value < 0 || value >= questions.length) return;
-    _currentQIndex = value;
-    notifyListeners();
-    if (!answers.containsKey(_currentQIndex)) answers[_currentQIndex] = [];
+  int _slide = -1;
+  set slide(int value) {
+    if (value < 0 || value >= 2 * questions.length) return;
+    _slide = value;
+    withAnswers = value >= questions.length;
+    _currentQIndex = value % questions.length;
+
+    if (!answers.containsKey(currentQIndex)) answers[currentQIndex] = [];
     service.updateQuestion(activeQuestion);
+    notifyListeners();
   }
 
+  int get slide => _slide;
+
+  int _currentQIndex = 0;
   int get currentQIndex => _currentQIndex;
+
+  bool withAnswers = false;
 
   QuestionService get service => _service;
   set service(QuestionService value) {
@@ -37,7 +45,7 @@ class HomePaneVM extends ChangeNotifier {
     };
     _service.answerReceivedCallback = (answer) {
       print('Answer: ${answer.answer} from ${answer.clientName}');
-      answers[_currentQIndex]!.add(answer);
+      answers[currentQIndex]!.add(answer);
       notifyListeners();
     };
   }

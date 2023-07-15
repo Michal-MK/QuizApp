@@ -8,10 +8,10 @@ class AnnotatedQuestionType {
 
 List<AnnotatedQuestionType> questionTypes = const [
   AnnotatedQuestionType(QuestionType.text, 'Text'),
-  AnnotatedQuestionType(QuestionType.number, 'Number'),
-  AnnotatedQuestionType(QuestionType.multipleChoice, 'Multiple Choice'),
-  AnnotatedQuestionType(QuestionType.trueFalse, 'True/False'),
-  AnnotatedQuestionType(QuestionType.location, 'Geolocation'),
+  AnnotatedQuestionType(QuestionType.number, 'Číslo'),
+  AnnotatedQuestionType(QuestionType.multipleChoice, 'Výběr z možností'),
+  AnnotatedQuestionType(QuestionType.trueFalse, 'Ano/Ne'),
+  AnnotatedQuestionType(QuestionType.location, 'Geolokace'),
 ];
 
 Map<int, QuestionType> questionTypesRev = {

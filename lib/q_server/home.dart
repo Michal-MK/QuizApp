@@ -57,7 +57,8 @@ class _ServerHomeState extends State<ServerHome> {
             onTap: () {
               setState(() async {
                 await homeVm.reloadQuestions();
-                homeVm.currentQIndex = 0;
+                homeVm.slide = 0;
+                homeVm.answers.clear();
               });
             },
             body: ChangeNotifierProvider.value(

@@ -93,7 +93,7 @@ Widget renderQuestionTypeContent(int selectedQuestionType, AddQuestionVM vm) {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text("${questionTypes[selectedQuestionType].name} Question", style: const TextStyle(fontSize: 16.0)),
+            child: Text("${questionTypes[selectedQuestionType].name} Answer", style: const TextStyle(fontSize: 18.0)),
           ),
           childOfQuestionType(selectedQuestionType, vm),
         ],

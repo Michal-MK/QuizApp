@@ -25,11 +25,14 @@ class QuestionInputCombo<T> extends StatelessWidget {
           Expanded(
             child: Text(title),
           ),
-          ComboBox<T>(
-            onChanged: onChange,
-            items: items,
-            placeholder: Text(title),
-            value: value,
+          SizedBox(
+            width: 200,
+            child: ComboBox<T>(
+              onChanged: onChange,
+              items: items,
+              placeholder: Text(title),
+              value: value,
+            ),
           ),
         ],
       ),

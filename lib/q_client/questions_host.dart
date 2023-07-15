@@ -25,7 +25,7 @@ class QuestionsHost extends StatefulWidget {
 class _QuestionsHostState extends State<QuestionsHost> with WidgetsBindingObserver {
   late final CommunicationClient client;
 
-  late Stream<Question> questionStream;
+  Stream<Question>? questionStream;
 
   @override
   void initState() {
