@@ -18,6 +18,13 @@ class LocationQuestionContent extends BaseQuestionContent {
           maxLines: 1
         ),
         const SizedBox(height: 8),
+        TextBox(
+          controller: vm.imageFilePathController,
+          placeholder: 'Select the image to be displayed',
+          maxLines: 1,
+          onTap: vm.selectImageFile,
+        ),
+        const SizedBox(height: 8),
         Button(
           child: const Text('Validate Location'),
           onPressed: () async {

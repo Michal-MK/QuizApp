@@ -1,5 +1,7 @@
+import 'dart:io';
+
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/material.dart' show Icons;
+import 'package:flutter/material.dart' show Dialog, Icons;
 import 'package:provider/provider.dart';
 import 'package:quiz/model/db/question_type.dart';
 import 'package:quiz/widgets/q_server/home/answer_content.dart';
@@ -127,6 +129,30 @@ class QuestionPresenter extends StatelessWidget {
                           SizedBox(width: 8.0),
                           Text("Nápověda"),
                         ],
+                      ),
+                    ),
+                  ),
+                if (vm.activeQuestion!.image != null)
+                  Container(
+                    margin: const EdgeInsets.only(top: 32.0),
+                    child: SizedBox(
+                      height: 64,
+                      child: Button(
+                        onPressed: () {
+                          showDialog(
+                            barrierDismissible: true,
+                            context: context,
+                            builder: (context) => Dialog(child: Image.file(File(vm.activeQuestion!.image!))),
+                          );
+                        },
+                        child: const Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.image, size: 48),
+                            SizedBox(width: 8.0),
+                            Text("Obrázek", style: TextStyle(fontSize: 24)),
+                          ],
+                        ),
                       ),
                     ),
                   ),

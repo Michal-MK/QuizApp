@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:drift/drift.dart';
+import 'package:exif/exif.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:quiz/model/db/model.dart';
 import 'package:quiz/model/db/question_type.dart';
@@ -18,10 +22,65 @@ class AddQuestionVM extends ChangeNotifier {
   final TextEditingController numberAnswerController = TextEditingController();
   bool boolQuestionAnswer = false;
   final TextEditingController geolocationAnswerController = TextEditingController();
+  final TextEditingController imageFilePathController = TextEditingController();
 
   void boolQuestionAnswerChanged(bool value) {
     boolQuestionAnswer = value;
     notifyListeners();
+  }
+
+  Future selectImageFile() async {
+    final FilePickerResult? filePath = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      allowMultiple: false,
+      initialDirectory: Directory(Platform.resolvedExecutable).parent.path,
+    );
+
+    if (filePath != null) {
+      imageFilePathController.text = filePath.files.single.path ?? '';
+      final exif = await readExifFromBytes(await File(imageFilePathController.text).readAsBytes());
+      String lat = "GPS GPSLatitude";
+      String lon = "GPS GPSLongitude";
+      String alt = "GPS GPSAltitude";
+      String dt = "EXIF DateTimeOriginal";
+
+      String latValue = exif![lat]!.printable;
+      String lonValue = exif[lon]!.printable;
+      String altValue = exif[alt]!.printable;
+      String dtValue = exif[dt]!.printable;
+
+      // [49, 18, 6777/625] [17, 14, 43449/2500]
+
+      RegExp dmzRegex = RegExp(r'(?<d>\d+), (?<m>\d+), (?<s1>\d+)/(?<s2>\d+)');
+      RegExp altRegex = RegExp(r'(?<d>\d+)/(?<m>\d+)');
+      var match = dmzRegex.firstMatch(latValue);
+      if(match != null) {
+        double d = double.parse(match.namedGroup('d')!);
+        double m = double.parse(match.namedGroup('m')!);
+        double s1 = double.parse(match.namedGroup('s1')!);
+        double s2 = double.parse(match.namedGroup('s2')!);
+        double latDecimal = d + m/60 + s1/s2/3600;
+        latValue = latDecimal.toString();
+      }
+      match = dmzRegex.firstMatch(lonValue);
+      if(match != null) {
+        double d = double.parse(match.namedGroup('d')!);
+        double m = double.parse(match.namedGroup('m')!);
+        double s1 = double.parse(match.namedGroup('s1')!);
+        double s2 = double.parse(match.namedGroup('s2')!);
+        double lonDecimal = d + m/60 + s1/s2/3600;
+        lonValue = lonDecimal.toString();
+      }
+      match = altRegex.firstMatch(altValue);
+      if(match != null) {
+        double d = double.parse(match.namedGroup('d')!);
+        double m = double.parse(match.namedGroup('m')!);
+        double altDecimal = d /m;
+        altValue = altDecimal.toString();
+      }
+
+      geolocationAnswerController.text = "$latValue $lonValue | ☁ $altValue 🕒 $dtValue";
+    }
   }
 
   get questionTypesList => questionTypes
@@ -58,6 +117,7 @@ class AddQuestionVM extends ChangeNotifier {
               author: author,
               category: category,
               jeopardyWeight: int.parse(jeopardyWeight),
+              image: Value.ofNullable(imageFilePathController.text),
             ),
           );
     }
