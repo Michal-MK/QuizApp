@@ -22,7 +22,7 @@ class HomePaneVM extends ChangeNotifier {
 
     if (!answers.containsKey(currentQIndex)) answers[currentQIndex] = [];
     service.updateQuestion(activeQuestion);
-    notifyListeners();
+    notify();
   }
 
   int get slide => _slide;
@@ -37,16 +37,16 @@ class HomePaneVM extends ChangeNotifier {
     _service = value;
     _service.clientConnectedCallback = (name, id) {
       connectedClients.add(name);
-      notifyListeners();
+      notify();
     };
     _service.clientDisconnectedCallback = (name) {
       connectedClients.remove(name);
-      notifyListeners();
+      notify();
     };
     _service.answerReceivedCallback = (answer) {
       print('Answer: ${answer.answer} from ${answer.clientName}');
       answers[currentQIndex]!.add(answer);
-      notifyListeners();
+      notify();
     };
   }
 
@@ -54,17 +54,25 @@ class HomePaneVM extends ChangeNotifier {
 
   bool preQuiz = true;
 
-  Future reloadQuestions() async {
+  Future reloadQuestions({bool notify = true}) async {
     var loaded = await QuestionEx.getQuestions();
     questions = loaded;
     preQuiz = false;
-    notifyListeners();
+    if (notify) {
+      this.notify();
+    }
   }
+
+  String quizName = 'Quiz';
 
   List<Question> questions = [];
 
   void toggleHintVisibility() {
     hintVisible ^= true;
+    notify();
+  }
+
+  void notify() {
     notifyListeners();
   }
 }

@@ -9,9 +9,8 @@ import 'package:quiz/widgets/q_server/question_management/question_management_co
 import 'package:quiz/widgets/q_server/question_management/question_management_vm.dart';
 
 class ServerHome extends StatefulWidget {
-  
   final QuestionService service;
-  
+
   const ServerHome({
     required this.service,
     super.key,
@@ -56,9 +55,11 @@ class _ServerHomeState extends State<ServerHome> {
             title: const Text('Repeat'),
             onTap: () {
               setState(() async {
-                await homeVm.reloadQuestions();
+                await homeVm.reloadQuestions(notify: false);
                 homeVm.slide = 0;
+                homeVm.preQuiz = true;
                 homeVm.answers.clear();
+                homeVm.notify();
               });
             },
             body: ChangeNotifierProvider.value(
