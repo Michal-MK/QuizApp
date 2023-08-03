@@ -1,13 +1,11 @@
 import 'dart:io';
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/services.dart';
 import 'package:grpc/grpc.dart';
 import 'package:nsd/nsd.dart';
-import 'package:quiz/q_client/home.dart';
-import 'package:quiz/q_server/home.dart';
+import 'package:quiz/pages/client/home.dart';
+import 'package:quiz/pages/server/host.dart';
 import 'package:quiz/model/question_service.dart';
 import 'package:nsd/nsd.dart' as nsd;
-import 'package:window_manager/window_manager.dart';
 
 const int port = 50051;
 
@@ -38,23 +36,8 @@ class ServerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RawKeyboardListener(
-      autofocus: true,
-      focusNode: FocusNode(),
-      onKey: (event) async {
-        if (event.isControlPressed && event.isKeyPressed(LogicalKeyboardKey.keyQ)) {
-          exit(0);
-        }
-        // Toggle fullscreen with F11
-        if (event.isKeyPressed(LogicalKeyboardKey.f11)) {
-          // var isFullScreen = await WindowManager.instance.isFullScreen();
-          // print("Is fullscreen: $isFullScreen");
-          // await WindowManager.instance.setFullScreen(true);
-        }
-      },
-      child: FluentApp(
-        home: ServerHome(service: service),
-      ),
+    return FluentApp(
+      home: ServerHome(service: service),
     );
   }
 }
