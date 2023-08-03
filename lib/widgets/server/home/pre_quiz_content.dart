@@ -25,12 +25,12 @@ class PreQuizContent extends StatelessWidget {
             Text(
               homePaneModel.quizName,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 52),
+              style: const TextStyle(fontSize: 52),
             ),
             const SizedBox(height: 32),
             Text(
               "Questions: ${homePaneModel.questions.length}",
-              style: TextStyle(fontSize: 24),
+              style: const TextStyle(fontSize: 24),
             ),
             const Spacer(),
             Align(

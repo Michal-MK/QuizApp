@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:quiz/model/question_service.dart';
 import 'package:quiz/pages/server/home/home_pane_vm.dart';
 import 'package:quiz/widgets/server/home/pre_quiz_content.dart';
-import 'package:quiz/widgets/server/home/question_presenter.dart';
+import 'package:quiz/widgets/server/home/quiz_content/quiz_content.dart';
 
 class HomePaneContent extends StatefulWidget {
   final QuestionService service;
@@ -31,7 +31,7 @@ class _HomePaneContentState extends State<HomePaneContent> {
         if (vm.preQuiz) {
           return PreQuizContent(homePaneModel: vm);
         }
-        return const QuestionPresenter();
+        return const QuizContent();
       },
     );
   }

@@ -29,9 +29,10 @@ class LocationQuestionContent extends BaseQuestionContent {
           child: const Text('Validate Location'),
           onPressed: () async {
             String text = vm.geolocationAnswerController.text;
-            List<String> latlon = text.split(',');
-            double latitude = double.parse(latlon[0]);
-            double longitude = double.parse(latlon[1]);
+            List<String> latlon = text.split('|');
+            var split = latlon[0].trim().split(' ');
+            double latitude = double.parse(split[0]);
+            double longitude = double.parse(split[1]);
             await MapsLauncher.launchCoordinates(latitude, longitude);
           },
         ),

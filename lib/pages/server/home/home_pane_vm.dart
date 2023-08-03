@@ -1,13 +1,19 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:quiz/model/client_status.dart';
 import 'package:quiz/model/db/model.dart';
 import 'package:quiz/model/question.dart';
 import 'package:quiz/model/question_service.dart';
 import 'package:quiz/proto_gen/questions.pb.dart';
 
 class HomePaneVM extends ChangeNotifier {
+  bool showClientStatus = true;
+  bool showAnswers = false;
+
   Question? get activeQuestion => questions.length > currentQIndex ? questions[currentQIndex] : null;
 
-  List<String> connectedClients = [];
+  List<ClientStatus> connectedClients = [
+    ClientStatus(name: 'Dummy Client 1'),
+  ];
 
   Map<int, List<AnswerRequest>> answers = {};
 
@@ -15,13 +21,17 @@ class HomePaneVM extends ChangeNotifier {
 
   int _slide = -1;
   set slide(int value) {
-    if (value < 0 || value >= 2 * questions.length) return;
+    if (value < 0 || value > 2 * questions.length) return;
     _slide = value;
-    withAnswers = value >= questions.length;
+    showAnswers = value >= questions.length;
+    showClientStatus = !showAnswers;
     _currentQIndex = value % questions.length;
 
     if (!answers.containsKey(currentQIndex)) answers[currentQIndex] = [];
     service.updateQuestion(activeQuestion);
+    connectedClients.forEach((element) {
+      element.answered = false;
+    });
     notify();
   }
 
@@ -30,13 +40,11 @@ class HomePaneVM extends ChangeNotifier {
   int _currentQIndex = 0;
   int get currentQIndex => _currentQIndex;
 
-  bool withAnswers = false;
-
   QuestionService get service => _service;
   set service(QuestionService value) {
     _service = value;
     _service.clientConnectedCallback = (name, id) {
-      connectedClients.add(name);
+      connectedClients.add(ClientStatus(name: name));
       notify();
     };
     _service.clientDisconnectedCallback = (name) {
@@ -46,6 +54,7 @@ class HomePaneVM extends ChangeNotifier {
     _service.answerReceivedCallback = (answer) {
       print('Answer: ${answer.answer} from ${answer.clientName}');
       answers[currentQIndex]!.add(answer);
+      connectedClients.firstWhere((element) => element.name == answer.clientName).answered = true;
       notify();
     };
   }
