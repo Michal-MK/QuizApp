@@ -4,7 +4,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quiz/pages/server/home/home_pane_vm.dart';
 import 'package:quiz/proto_gen/questions.pb.dart';
-import 'package:quiz/widgets/panel.dart';
+import 'package:quiz/widgets/common/q_panel.dart';
 
 class QuizContentBottomPanel extends StatelessWidget {
   const QuizContentBottomPanel({
@@ -20,10 +20,11 @@ class QuizContentBottomPanel extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             const Expanded(child: SizedBox()),
             SizedBox(
-              height: vm.showAnswers ? 400 : 200,
+              height: 200,
               width: double.maxFinite,
               child: QPanel(
                 child: Padding(
@@ -67,6 +68,7 @@ class QuizContentBottomPanel extends StatelessWidget {
                                     backgroundColor: client.color.withOpacity(0.2),
                                     borderRadius: BorderRadius.circular(8),
                                     child: Column(
+                                      mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Text(client.name, textAlign: TextAlign.center, style: const TextStyle(fontSize: 24)),
                                         if (answer == null) ...[

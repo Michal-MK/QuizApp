@@ -28,13 +28,14 @@ class QuestionDatabase extends _$QuestionDatabase {
   int get schemaVersion => 1;
 }
 
-LazyDatabase _openConnection() {
-  return LazyDatabase(() async {
-    final dbFolder = p.dirname(Platform.resolvedExecutable);
-    final file = File(p.join(dbFolder, 'db.sqlite'));
-    return NativeDatabase.createInBackground(file);
-  });
+NativeDatabase _openConnection() {
+  String dbFolder = p.dirname(Platform.resolvedExecutable);
+  if (Platform.isMacOS) {
+    dbFolder = "~/sqlite/";
+  }
+  Directory(dbFolder).create(recursive: true);
+  final file = File(p.join(dbFolder, 'db.sqlite'));
+  return NativeDatabase(file);
 }
-
 
 final QuestionDatabase db = QuestionDatabase();

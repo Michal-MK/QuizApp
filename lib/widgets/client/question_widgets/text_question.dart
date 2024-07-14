@@ -11,7 +11,7 @@ class TextQuestion extends StatefulWidget {
   const TextQuestion({
     required this.question,
     required this.client,
-    super.key, 
+    super.key,
   });
 
   @override
@@ -47,7 +47,15 @@ class _TextQuestionState extends State<TextQuestion> {
             height: 128,
             child: TextField(
               controller: _controller,
-              decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Odpověď', floatingLabelAlignment: FloatingLabelAlignment.start, alignLabelWithHint: true),
+              onTapOutside: (event) => FocusScope.of(context).unfocus(),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                ),
+                enabledBorder: OutlineInputBorder(),
+                labelText: 'Odpověď',
+                floatingLabelAlignment: FloatingLabelAlignment.start,
+                alignLabelWithHint: true,
+              ),
               maxLines: 4,
             ),
           ),

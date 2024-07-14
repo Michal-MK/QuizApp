@@ -1,7 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' show Icons;
 import 'package:quiz/pages/server/home/home_pane_vm.dart';
-import 'package:quiz/widgets/panel.dart';
+import 'package:quiz/widgets/common/q_panel.dart';
 
 class PreQuizContent extends StatelessWidget {
   final HomePaneVM homePaneModel;

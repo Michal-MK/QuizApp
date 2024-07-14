@@ -67,7 +67,7 @@ class _QuestionsHostState extends State<QuestionsHost> with WidgetsBindingObserv
         stream: questionStream,
         builder: (context, snapshot) {
           if (snapshot.data == null) {
-            return Center(
+            return const Center(
               child: Text("Waiting..."),
             );
           }

@@ -24,22 +24,23 @@ class QuestionBase extends StatefulWidget {
 }
 
 class _QuestionBaseState extends State<QuestionBase> {
-
   MaterialStatesController controller = MaterialStatesController();
 
   @override
   Widget build(BuildContext context) {
+    Color questionColor = questionTypeColor(widget.question.type);
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
               width: double.maxFinite,
-              height: 72,
+              height: 96,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: questionTypeColor(widget.question.type).withAlpha(40),
+                color: questionColor.withAlpha(40),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
@@ -61,9 +62,8 @@ class _QuestionBaseState extends State<QuestionBase> {
             Expanded(
               child: widget.child,
             ),
-            SizedBox(
-              width: 200,
-              height: 42,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: ElevatedButton(
                 onPressed: () async {
                   controller.update(MaterialState.disabled, true);
@@ -72,11 +72,17 @@ class _QuestionBaseState extends State<QuestionBase> {
                 statesController: controller,
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(16),
                   ),
-                  backgroundColor: questionTypeColor(widget.question.type),
+                  backgroundColor: questionColor,
                 ),
-                child: const Text('Odeslat'),
+                child: Text(
+                  'Odeslat',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: ThemeData.estimateBrightnessForColor(questionColor) == Brightness.light ? Colors.black : Colors.white,
+                  ),
+                ),
               ),
             ),
           ],

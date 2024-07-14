@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/model/comms_client.dart';
 import 'package:quiz/model/db/model.dart';
-import 'package:quiz/model/decimal_input_formatter.dart';
+import 'package:quiz/util/decimal_input_formatter.dart';
 import 'package:quiz/proto_gen/questions.pb.dart';
 import 'package:quiz/widgets/client/question_widgets/question_base.dart';
 

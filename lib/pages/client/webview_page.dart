@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebViewPage extends StatefulWidget {
-  const WebViewPage({super.key});
+class MapPage extends StatefulWidget {
+  const MapPage({super.key});
 
   @override
-  State<WebViewPage> createState() => _WebViewPageState();
+  State<MapPage> createState() => _MapPageState();
 }
 
-class _WebViewPageState extends State<WebViewPage> {
+class _MapPageState extends State<MapPage> {
   final controller = WebViewController();
 
   @override

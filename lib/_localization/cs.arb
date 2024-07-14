@@ -1,0 +1,7 @@
+{
+  "@@locale": "cs",
+  "app_name": "Quiz App",
+  "home_available_servers": "Dostupné servery",
+  "home_client_name": "Tvá přezdívka",
+  "home_client_name_validation_error": "Přezdívka musí být alespoň 3 znaky dlouhá"
+}
