@@ -6,8 +6,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:quiz/configuration/di.dart';
 import 'package:quiz/configuration/nsd.dart';
-import 'package:quiz/pages/client/home/page/client_home_page.dart';
-import 'package:quiz/pages/server/host.dart';
+import 'package:quiz/ui/client/home/page/client_home_page.dart';
+import 'package:quiz/ui/server/host.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:quiz/services/localization_cubit.dart';
 
