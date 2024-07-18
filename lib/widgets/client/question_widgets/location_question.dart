@@ -36,7 +36,7 @@ class _LocationQuestionState extends State<LocationQuestion> {
         return Future.value(
           AnswerRequest()
             ..answer = markers.first.position.toString()
-            ..questionId = widget.question.id
+            ..questionId = widget.question.id!
             ..clientUuid = widget.client.uuid
             ..clientName = widget.client.clientName,
         );

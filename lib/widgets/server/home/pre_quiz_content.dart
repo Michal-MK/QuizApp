@@ -1,18 +1,17 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' show Icons;
+import 'package:provider/provider.dart';
 import 'package:quiz/pages/server/home/home_pane_vm.dart';
 import 'package:quiz/widgets/common/q_panel.dart';
 
 class PreQuizContent extends StatelessWidget {
-  final HomePaneVM homePaneModel;
-
   const PreQuizContent({
-    required this.homePaneModel,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
+    final HomePaneVM homePaneModel = context.watch<HomePaneVM>();
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32.0),

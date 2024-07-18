@@ -1,38 +1,20 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:provider/provider.dart';
-import 'package:quiz/model/question_service.dart';
 import 'package:quiz/pages/server/home/home_pane_vm.dart';
 import 'package:quiz/widgets/server/home/pre_quiz_content.dart';
 import 'package:quiz/widgets/server/home/quiz_content/quiz_content.dart';
 
-class HomePaneContent extends StatefulWidget {
-  final QuestionService service;
-
+class HomePaneContent extends StatelessWidget {
   const HomePaneContent({
-    required this.service,
     super.key,
   });
 
   @override
-  State<HomePaneContent> createState() => _HomePaneContentState();
-}
-
-class _HomePaneContentState extends State<HomePaneContent> {
-  @override
-  void didChangeDependencies() {
-    context.read<HomePaneVM>().service = widget.service;
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Consumer<HomePaneVM>(
-      builder: (context, vm, _) {
-        if (vm.preQuiz) {
-          return PreQuizContent(homePaneModel: vm);
-        }
-        return const QuizContent();
-      },
-    );
+    final homeVm = context.watch<HomePaneVM>();
+    if (homeVm.preQuiz) {
+      return const PreQuizContent();
+    }
+    return const QuizContent();
   }
 }

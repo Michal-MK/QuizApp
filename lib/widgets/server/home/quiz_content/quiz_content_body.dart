@@ -25,7 +25,7 @@ class QuizContentBody extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        if (vm.hintVisible)
+        if (vm.showHint)
           Column(
             children: [
               Button(

@@ -3,15 +3,19 @@ import 'package:quiz/model/db/model.dart';
 import 'package:quiz/model/question.dart';
 
 class QuestionManagementVM extends ChangeNotifier {
+  final QuestionRepo db;
+  
   List<Question> questions = [];
 
+  QuestionManagementVM(this.db);
+
   void loadQuestions() async {
-    questions = await QuestionEx.getQuestions();
+    questions = await db.getQuestions();
     notifyListeners();
   }
 
   void deleteQuestion(int id) async {
-    await (db.delete(db.questions)..where((entity) => entity.id.equals(id))).go();
+    await db.delete(id);
     loadQuestions();
   }
 

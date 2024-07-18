@@ -7,5 +7,4 @@ extension ContextExtensions on BuildContext {
   LocalizationCubit get localization => read<LocalizationCubit>();
 
   AppLocalizations get l => AppLocalizations.of(this)!;
-
 }

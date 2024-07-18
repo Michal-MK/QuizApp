@@ -12,7 +12,7 @@ class $QuestionsTable extends Questions
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
+      'id', aliasedName, true,
       hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
@@ -176,7 +176,7 @@ class $QuestionsTable extends Questions
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Question(
       id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}id']),
       question: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}question'])!,
       hint: attachedDatabase.typeMapping
@@ -208,7 +208,7 @@ class $QuestionsTable extends Questions
 }
 
 class Question extends DataClass implements Insertable<Question> {
-  final int id;
+  final int? id;
   final String question;
   final String? hint;
   final String? image;
@@ -220,7 +220,7 @@ class Question extends DataClass implements Insertable<Question> {
   final String author;
   final int jeopardyWeight;
   const Question(
-      {required this.id,
+      {this.id,
       required this.question,
       this.hint,
       this.image,
@@ -234,7 +234,9 @@ class Question extends DataClass implements Insertable<Question> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
+    if (!nullToAbsent || id != null) {
+      map['id'] = Variable<int>(id);
+    }
     map['question'] = Variable<String>(question);
     if (!nullToAbsent || hint != null) {
       map['hint'] = Variable<String>(hint);
@@ -261,7 +263,7 @@ class Question extends DataClass implements Insertable<Question> {
 
   QuestionsCompanion toCompanion(bool nullToAbsent) {
     return QuestionsCompanion(
-      id: Value(id),
+      id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       question: Value(question),
       hint: hint == null && nullToAbsent ? const Value.absent() : Value(hint),
       image:
@@ -286,7 +288,7 @@ class Question extends DataClass implements Insertable<Question> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Question(
-      id: serializer.fromJson<int>(json['id']),
+      id: serializer.fromJson<int?>(json['id']),
       question: serializer.fromJson<String>(json['question']),
       hint: serializer.fromJson<String?>(json['hint']),
       image: serializer.fromJson<String?>(json['image']),
@@ -305,7 +307,7 @@ class Question extends DataClass implements Insertable<Question> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
+      'id': serializer.toJson<int?>(id),
       'question': serializer.toJson<String>(question),
       'hint': serializer.toJson<String?>(hint),
       'image': serializer.toJson<String?>(image),
@@ -321,7 +323,7 @@ class Question extends DataClass implements Insertable<Question> {
   }
 
   Question copyWith(
-          {int? id,
+          {Value<int?> id = const Value.absent(),
           String? question,
           Value<String?> hint = const Value.absent(),
           Value<String?> image = const Value.absent(),
@@ -333,7 +335,7 @@ class Question extends DataClass implements Insertable<Question> {
           String? author,
           int? jeopardyWeight}) =>
       Question(
-        id: id ?? this.id,
+        id: id.present ? id.value : this.id,
         question: question ?? this.question,
         hint: hint.present ? hint.value : this.hint,
         image: image.present ? image.value : this.image,
@@ -400,7 +402,7 @@ class Question extends DataClass implements Insertable<Question> {
 }
 
 class QuestionsCompanion extends UpdateCompanion<Question> {
-  final Value<int> id;
+  final Value<int?> id;
   final Value<String> question;
   final Value<String?> hint;
   final Value<String?> image;
@@ -471,7 +473,7 @@ class QuestionsCompanion extends UpdateCompanion<Question> {
   }
 
   QuestionsCompanion copyWith(
-      {Value<int>? id,
+      {Value<int?>? id,
       Value<String>? question,
       Value<String?>? hint,
       Value<String?>? image,

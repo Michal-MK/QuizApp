@@ -1,24 +1,10 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quiz/model/db/model.dart';
-import 'package:quiz/widgets/server/question_management/question_management_vm.dart';
+import 'package:quiz/pages/server/question_management/question_management_vm.dart';
 
-class QuestionManagementContent extends StatefulWidget {
+class QuestionManagementContent extends StatelessWidget {
   const QuestionManagementContent({super.key});
-
-  @override
-  State<QuestionManagementContent> createState() => _QuestionManagementContentState();
-}
-
-class _QuestionManagementContentState extends State<QuestionManagementContent> {
-  List<Question> questions = [];
-
-  @override
-  void initState() {
-    db.select(db.questions).get().then((value) => questions = value);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +37,12 @@ class _QuestionManagementContentState extends State<QuestionManagementContent> {
                     children: [
                       Button(
                         child: const Icon(FluentIcons.edit),
-                        onPressed: () => vm.editQuestion(m.id),
+                        onPressed: () => vm.editQuestion(m.id!),
                       ),
                       const SizedBox(width: 8),
                       Button(
                         child: const Icon(FluentIcons.delete),
-                        onPressed: () => vm.deleteQuestion(m.id),
+                        onPressed: () => vm.deleteQuestion(m.id!),
                       ),
                     ],
                   )),

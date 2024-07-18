@@ -6,18 +6,26 @@ import 'package:quiz/model/question_service.dart';
 import 'package:quiz/proto_gen/questions.pb.dart';
 
 class HomePaneVM extends ChangeNotifier {
+
+  final QuestionRepo db;
+  final QuestionService questionService;
+
+  HomePaneVM(this.questionService, this.db) {
+    setupCallbacks();
+  }
+
   bool showClientStatus = true;
   bool showAnswers = false;
+  bool showHint = false;
+
+  bool preQuiz = true;
 
   Question? get activeQuestion => questions.length > currentQIndex ? questions[currentQIndex] : null;
+  Map<int, List<AnswerRequest>> answers = {};
 
   List<ClientStatus> connectedClients = [
     ClientStatus(name: 'Dummy Client 1'),
   ];
-
-  Map<int, List<AnswerRequest>> answers = {};
-
-  bool hintVisible = false;
 
   int _slide = -1;
   set slide(int value) {
@@ -25,50 +33,44 @@ class HomePaneVM extends ChangeNotifier {
     _slide = value;
     showAnswers = value >= questions.length;
     showClientStatus = !showAnswers;
-    _currentQIndex = value % questions.length;
+    currentQIndex = value % questions.length;
 
     if (!answers.containsKey(currentQIndex)) answers[currentQIndex] = [];
-    service.updateQuestion(activeQuestion);
-    connectedClients.forEach((element) {
-      element.answered = false;
-    });
-    notify();
+    questionService.updateQuestion(activeQuestion);
+    for (var client in connectedClients) {
+      client.answered = false;
+    }
+    notifyListeners();
   }
 
   int get slide => _slide;
 
-  int _currentQIndex = 0;
-  int get currentQIndex => _currentQIndex;
+  int currentQIndex = 0;
 
-  QuestionService get service => _service;
-  set service(QuestionService value) {
-    _service = value;
-    _service.clientConnectedCallback = (name, id) {
+  void setupCallbacks() {
+    questionService.clientConnectedCallback = (name, id) {
       connectedClients.add(ClientStatus(name: name));
-      notify();
+      notifyListeners();
     };
-    _service.clientDisconnectedCallback = (name) {
+    questionService.clientDisconnectedCallback = (name) {
       connectedClients.remove(name);
-      notify();
+      notifyListeners();
     };
-    _service.answerReceivedCallback = (answer) {
+    questionService.answerReceivedCallback = (answer) {
       print('Answer: ${answer.answer} from ${answer.clientName}');
       answers[currentQIndex]!.add(answer);
       connectedClients.firstWhere((element) => element.name == answer.clientName).answered = true;
-      notify();
+      notifyListeners();
     };
   }
 
-  late QuestionService _service;
-
-  bool preQuiz = true;
 
   Future reloadQuestions({bool notify = true}) async {
-    var loaded = await QuestionEx.getQuestions();
+    var loaded = await db.getQuestions();
     questions = loaded;
     preQuiz = false;
     if (notify) {
-      this.notify();
+      notifyListeners();
     }
   }
 
@@ -77,12 +79,8 @@ class HomePaneVM extends ChangeNotifier {
   List<Question> questions = [];
 
   void toggleHintVisibility() {
-    hintVisible ^= true;
-    notify();
-  }
-
-  void notify() {
-    notifyListeners();
+    showHint ^= true;
+    notifyListeners();;
   }
 
   Future reset() async {
@@ -90,6 +88,6 @@ class HomePaneVM extends ChangeNotifier {
     slide = 0;
     preQuiz = true;
     answers.clear();
-    notify();
+    notifyListeners();
   }
 }

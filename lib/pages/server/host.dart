@@ -1,18 +1,15 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:provider/provider.dart';
-import 'package:quiz/model/question_service.dart';
+import 'package:quiz/configuration/di.dart';
 import 'package:quiz/pages/server/add_question/add_question_content.dart';
 import 'package:quiz/pages/server/add_question/add_question_vm.dart';
 import 'package:quiz/pages/server/home/home_pane_content.dart';
 import 'package:quiz/pages/server/home/home_pane_vm.dart';
-import 'package:quiz/widgets/server/question_management/question_management_content.dart';
-import 'package:quiz/widgets/server/question_management/question_management_vm.dart';
+import 'package:quiz/pages/server/question_management/question_management_content.dart';
+import 'package:quiz/pages/server/question_management/question_management_vm.dart';
 
 class ServerHome extends StatefulWidget {
-  final QuestionService service;
-
   const ServerHome({
-    required this.service,
     super.key,
   });
 
@@ -21,10 +18,6 @@ class ServerHome extends StatefulWidget {
 }
 
 class _ServerHomeState extends State<ServerHome> {
-  final HomePaneVM homeVm = HomePaneVM();
-  final AddQuestionVM addQVm = AddQuestionVM();
-  final QuestionManagementVM qListVm = QuestionManagementVM();
-
   int selectedPane = 0;
 
   @override
@@ -44,34 +37,30 @@ class _ServerHomeState extends State<ServerHome> {
         onChanged: (value) {
           setState(() {
             selectedPane = value;
-            if (selectedPane == 2) {
-              qListVm.loadQuestions();
-            }
           });
         },
         items: [
           PaneItem(
             icon: const Icon(FluentIcons.repeat_all, size: 18),
             title: const Text('Repeat'),
-            onTap: homeVm.reset,
-            body: ChangeNotifierProvider.value(
-              value: homeVm,
-              child: HomePaneContent(service: widget.service),
+            body: ChangeNotifierProvider<HomePaneVM>(
+              create: (context) => DI.get(),
+              child: const HomePaneContent(),
             ),
           ),
           PaneItem(
             icon: const Icon(FluentIcons.add_field, size: 18),
             title: const Text('Add Question'),
-            body: ChangeNotifierProvider.value(
-              value: addQVm,
+            body: ChangeNotifierProvider<AddQuestionVM>(
+              create: (context) => DI.get(),
               child: const AddQuestionContent(),
             ),
           ),
           PaneItem(
             icon: const Icon(FluentIcons.list, size: 18),
             title: const Text('Manage Questions'),
-            body: ChangeNotifierProvider.value(
-              value: qListVm,
+            body: ChangeNotifierProvider<QuestionManagementVM>(
+              create: (context) => DI.get(),
               child: const QuestionManagementContent(),
             ),
           ),

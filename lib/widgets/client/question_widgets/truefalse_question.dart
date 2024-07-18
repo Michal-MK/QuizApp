@@ -33,7 +33,7 @@ class _TrueFalseQuestionState extends State<TrueFalseQuestion> {
         return Future.value(
           AnswerRequest()
             ..answer = value.toString()
-            ..questionId = widget.question.id
+            ..questionId = widget.question.id!
             ..clientUuid = widget.client.uuid
             ..clientName = widget.client.clientName,
         );

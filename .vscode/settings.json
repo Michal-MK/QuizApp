@@ -1,6 +1,6 @@
 {
     "files.exclude": {
-        "**/quizapp.iml": true,
+        "**/quiz_app.iml": true,
         "**/pubspec.lock": true,
         "**/.metadata": true,
         "**/.flutter-*": true,
@@ -10,7 +10,7 @@
         "**/analysis_options.yaml": true,
         
         "**/.gitignore": true,
-        "**/README.md": true,
+        // "**/README.md": true,
         "**/fonts": true,
         "**/test": true,
         "**/ios/**": true,

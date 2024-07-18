@@ -14,7 +14,9 @@ class QuizContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomePaneVM vm = context.watch<HomePaneVM>();
+
     return QuestionBackground(
+      activeQuestion: vm.activeQuestion,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
