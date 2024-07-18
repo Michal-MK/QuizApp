@@ -1,5 +1,5 @@
-import 'package:fluent_ui/fluent_ui.dart';
-import 'package:quiz/ui/server/home/home_pane_vm.dart';
+import 'package:flutter/material.dart';
+import 'package:quiz/ui/server/home/widgets/quiz_content/quiz_content_vm.dart';
 
 class QuizContentHeader extends StatelessWidget {
   const QuizContentHeader({
@@ -7,7 +7,7 @@ class QuizContentHeader extends StatelessWidget {
     required this.vm,
   });
 
-  final HomePaneVM vm;
+  final QuizContentVM vm;
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +15,12 @@ class QuizContentHeader extends StatelessWidget {
       padding: const EdgeInsets.only(top: 32.0, left: 32.0, bottom: 32.0),
       child: Align(
         alignment: Alignment.centerLeft,
-        child: IconButton(
+        child: IconButton.filled(
           icon: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text("${vm.slide == 0 ? '-' : vm.slide}/${vm.questions.length * 2}"),
-              const Icon(FluentIcons.chevron_left, size: 48),
+              const Icon(Icons.arrow_back_ios, size: 48),
             ],
           ),
           onPressed: () {

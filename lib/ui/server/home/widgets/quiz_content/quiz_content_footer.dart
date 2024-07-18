@@ -1,6 +1,6 @@
-import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter/material.dart';
 import 'package:quiz/model/db/question_type.dart';
-import 'package:quiz/ui/server/home/home_pane_vm.dart';
+import 'package:quiz/ui/server/home/widgets/quiz_content/quiz_content_vm.dart';
 
 class QuizContentFooter extends StatelessWidget {
   const QuizContentFooter({
@@ -8,7 +8,7 @@ class QuizContentFooter extends StatelessWidget {
     required this.vm,
   });
 
-  final HomePaneVM vm;
+  final QuizContentVM vm;
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +30,11 @@ class QuizContentFooter extends StatelessWidget {
             ),
             const Spacer(),
             if (vm.slide + 1 != vm.questions.length * 2)
-              IconButton(
+              IconButton.filled(
                 icon: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(FluentIcons.chevron_right, size: 48),
+                    const Icon(Icons.arrow_forward_ios, size: 48),
                     Text("${vm.slide + 1 == vm.questions.length * 2 ? '-' : vm.slide + 2}/${vm.questions.length * 2}"),
                   ],
                 ),

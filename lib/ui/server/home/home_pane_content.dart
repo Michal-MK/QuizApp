@@ -13,8 +13,8 @@ class HomePaneContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeVm = context.watch<HomePaneVM>();
     if (homeVm.preQuiz) {
-      return const PreQuizContent();
+      return ChangeNotifierProvider.value(value: homeVm.preQuizVM, child: const PreQuizContent());
     }
-    return const QuizContent();
+    return ChangeNotifierProvider.value(value: homeVm.quizVM, child: const QuizContent());
   }
 }

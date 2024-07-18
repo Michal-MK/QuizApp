@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' show Dialog, Icons;
-import 'package:quiz/ui/server/home/home_pane_vm.dart';
 import 'package:quiz/ui/server/home/widgets/quiz_content/quiz_content_bottom_panel.dart';
+import 'package:quiz/ui/server/home/widgets/quiz_content/quiz_content_vm.dart';
 
 class QuizContentBody extends StatelessWidget {
   const QuizContentBody({
@@ -11,7 +11,7 @@ class QuizContentBody extends StatelessWidget {
     required this.vm,
   });
 
-  final HomePaneVM vm;
+  final QuizContentVM vm;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class QuizContentBody extends StatelessWidget {
                 children: [
                   Icon(Icons.visibility),
                   SizedBox(width: 8.0),
-                  Text("Nápověda"),
+                  Text("Nápověda", style: TextStyle(fontFamily: "Nunito", fontSize: 40),),
                 ],
               ),
             ),

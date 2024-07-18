@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:lottie/lottie.dart';
-import 'package:quiz/ui/server/home/home_pane_vm.dart';
 import 'package:quiz/proto_gen/questions.pb.dart';
 import 'package:quiz/ui/common/q_panel.dart';
+import 'package:quiz/ui/server/home/widgets/quiz_content/quiz_content_vm.dart';
 
 class QuizContentBottomPanel extends StatelessWidget {
   const QuizContentBottomPanel({
@@ -12,7 +12,7 @@ class QuizContentBottomPanel extends StatelessWidget {
     required this.vm,
   });
 
-  final HomePaneVM vm;
+  final QuizContentVM vm;
 
   @override
   Widget build(BuildContext context) {

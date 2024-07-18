@@ -11,7 +11,6 @@ class PreQuizContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomePaneVM homePaneModel = context.watch<HomePaneVM>();
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32.0),
@@ -21,22 +20,22 @@ class PreQuizContent extends StatelessWidget {
           children: [
             const Text("Info", style: TextStyle(fontSize: 32)),
             const SizedBox(height: 32),
-            Text(
-              homePaneModel.quizName,
+            const Text(
+              "TODO Quiz name",
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 52),
+              style: TextStyle(fontSize: 52),
             ),
             const SizedBox(height: 32),
-            Text(
-              "Questions: ${homePaneModel.questions.length}",
-              style: const TextStyle(fontSize: 24),
+            const Text(
+              "Questions: TODO",
+              style: TextStyle(fontSize: 24),
             ),
             const Spacer(),
             Align(
               alignment: Alignment.bottomRight,
               child: QPanel(
                 child: IconButton(
-                  onPressed: homePaneModel.reloadQuestions,
+                  onPressed: context.read<HomePaneVM>().startQuiz,
                   icon: const Icon(Icons.start, size: 48),
                 ),
               ),

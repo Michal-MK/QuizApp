@@ -7,7 +7,9 @@ class QuestionManagementVM extends ChangeNotifier {
   
   List<Question> questions = [];
 
-  QuestionManagementVM(this.db);
+  QuestionManagementVM(this.db) {
+    loadQuestions();
+  }
 
   void loadQuestions() async {
     questions = await db.getQuestions();
