@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz/model/comms_client.dart';
+import 'package:quiz/comms/comms_client.dart';
 import 'package:quiz/model/db/model.dart';
 import 'package:quiz/proto_gen/questions.pb.dart';
 import 'package:quiz/theme/theme.dart';

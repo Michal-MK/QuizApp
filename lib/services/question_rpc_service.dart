@@ -5,7 +5,7 @@ import 'package:quiz/model/db/question_type.dart';
 import 'package:quiz/proto_gen/questions.pbgrpc.dart';
 import 'package:uuid/uuid.dart';
 
-class QuestionService extends QuestionServiceBase {
+class QuestionRPCService extends QuestionServiceBase {
   StreamController<QuestionStreamResponse> _controller = StreamController.broadcast();
 
 

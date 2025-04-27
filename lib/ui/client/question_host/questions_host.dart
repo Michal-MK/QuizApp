@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nsd/nsd.dart';
-import 'package:quiz/model/comms_client.dart';
+import 'package:quiz/comms/comms_client.dart';
 import 'package:quiz/model/db/model.dart';
 import 'package:quiz/ui/client/question_host/question_widgets/location_question.dart';
 import 'package:quiz/ui/client/question_host/question_widgets/multichoice_question.dart';

@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:quiz/configuration/di.dart';
 import 'package:quiz/ui/server/add_question/add_question_content.dart';
 import 'package:quiz/ui/server/add_question/add_question_vm.dart';
+import 'package:quiz/ui/server/debug/debug_page.dart';
+import 'package:quiz/ui/server/debug/debug_vm.dart';
 import 'package:quiz/ui/server/home/home_pane_content.dart';
 import 'package:quiz/ui/server/home/home_pane_vm.dart';
 import 'package:quiz/ui/server/question_management/question_management_content.dart';
@@ -62,6 +64,14 @@ class _ServerHomeState extends State<ServerHome> {
             body: ChangeNotifierProvider<QuestionManagementVM>(
               create: (context) => DI.get(),
               child: const QuestionManagementContent(),
+            ),
+          ),
+          PaneItem(
+            icon: const Icon(FluentIcons.bug, size: 18),
+            title: const Text('Debug'),
+            body: ChangeNotifierProvider<DebugVM>(
+              create: (context) => DI.get(),
+              child: const DebugPage(),
             ),
           ),
         ],

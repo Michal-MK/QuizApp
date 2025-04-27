@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:quiz/services/shared_preferences_service.dart';
+import 'package:quiz/services/shared_preferences_storage.dart';
 
 class LocalizationCubit extends Cubit<Locale> {
   final SharedPreferenceStorage sharedPreferences;

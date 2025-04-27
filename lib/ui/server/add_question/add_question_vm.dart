@@ -24,7 +24,7 @@ class AddQuestionVM extends ChangeNotifier {
   final TextEditingController geolocationAnswerController = TextEditingController();
   final TextEditingController imageFilePathController = TextEditingController();
 
-  final QuestionDatabase db;
+  final QuizDatabase db;
 
   AddQuestionVM(this.db);
 

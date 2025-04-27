@@ -1,6 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:quiz/model/db/model.dart';
-import 'package:quiz/model/question.dart';
+import 'package:quiz/model/question_repo.dart';
 
 class QuestionManagementVM extends ChangeNotifier {
   final QuestionRepo db;

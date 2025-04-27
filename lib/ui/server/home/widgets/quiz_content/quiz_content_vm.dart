@@ -1,8 +1,8 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:quiz/model/client_status.dart';
 import 'package:quiz/model/db/model.dart';
-import 'package:quiz/model/question.dart';
-import 'package:quiz/model/question_service.dart';
+import 'package:quiz/model/question_repo.dart';
+import 'package:quiz/services/question_rpc_service.dart';
 import 'package:quiz/proto_gen/questions.pb.dart';
 
 class QuizContentVM extends ChangeNotifier {
@@ -12,7 +12,7 @@ class QuizContentVM extends ChangeNotifier {
   }
 
   final QuestionRepo db;
-  final QuestionService questionService;
+  final QuestionRPCService questionService;
   
   Question? get activeQuestion => questions.length > currentQIndex ? questions[currentQIndex] : null;
   Map<int, List<AnswerRequest>> answers = {};
@@ -35,6 +35,7 @@ class QuizContentVM extends ChangeNotifier {
     _slide = value;
     showAnswers = value >= questions.length;
     showClientStatus = !showAnswers;
+    if(questions.isEmpty) return;
     currentQIndex = value % questions.length;
 
     if (!answers.containsKey(currentQIndex)) answers[currentQIndex] = [];
@@ -90,6 +91,10 @@ class QuizContentVM extends ChangeNotifier {
   void toggleHintVisibility() {
     showHint ^= true;
     notifyListeners();;
+  }
+
+  Future<void> startQuiz(Quiz quiz) async {
+    
   }
 
 }

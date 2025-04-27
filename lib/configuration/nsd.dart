@@ -1,7 +1,7 @@
 import 'package:grpc/grpc.dart';
 import 'package:nsd/nsd.dart' as nsd;
 import 'package:quiz/configuration/di.dart';
-import 'package:quiz/model/question_service.dart';
+import 'package:quiz/services/question_rpc_service.dart';
 
 class NSD {
   static Future<Server?> init(int port) async {
@@ -14,7 +14,7 @@ class NSD {
       return null;
     }
 
-    final questionService = DI.get<QuestionService>();
+    final questionService = DI.get<QuestionRPCService>();
     try {
       Server server = Server.create(services: [
         questionService,

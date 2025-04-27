@@ -28,7 +28,7 @@ class QuestionManagementContent extends StatelessWidget {
                 cells: [
                   DataCell(Text(m.question)),
                   DataCell(Text(m.hint ?? "")),
-                  DataCell(Text(m.answer!)),
+                  DataCell(Text("**********")),
                   DataCell(Text(m.author)),
                   DataCell(Text(m.jeopardyWeight.toString())),
                   DataCell(Text(m.type.toString())),

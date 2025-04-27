@@ -2,15 +2,15 @@ import 'package:flutter/foundation.dart';
 import 'package:quiz/model/db/model.dart';
 import 'package:quiz/model/quiz_repo.dart';
 
-class PreQuizContentVM extends ChangeNotifier {
+class HomeVM extends ChangeNotifier {
   final QuizRepo quizRepo;
 
-  Quiz? quiz;
+  List<Quiz>? quizes;
 
-  PreQuizContentVM(this.quizRepo);
+  HomeVM(this.quizRepo);
 
-  Future<void> load(int quizId) async {
-    quiz = await quizRepo.getById(quizId);
+  Future<void> init() async {
+    quizes = await quizRepo.getQuizes();
     notifyListeners();
   }
 }

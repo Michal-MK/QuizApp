@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' show Icons;
 import 'package:provider/provider.dart';
 import 'package:quiz/ui/server/home/home_pane_vm.dart';
 import 'package:quiz/ui/common/q_panel.dart';
+import 'package:quiz/ui/server/home/widgets/pre_quiz_content/pre_quiz_content_vm.dart';
 
 class PreQuizContent extends StatelessWidget {
   const PreQuizContent({
@@ -11,6 +12,7 @@ class PreQuizContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final preQuizVM = context.watch<PreQuizContentVM>();
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32.0),
@@ -20,10 +22,10 @@ class PreQuizContent extends StatelessWidget {
           children: [
             const Text("Info", style: TextStyle(fontSize: 32)),
             const SizedBox(height: 32),
-            const Text(
-              "TODO Quiz name",
+            Text(
+              preQuizVM.quiz?.quizName ?? "",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 52),
+              style: const TextStyle(fontSize: 52),
             ),
             const SizedBox(height: 32),
             const Text(
@@ -35,7 +37,10 @@ class PreQuizContent extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: QPanel(
                 child: IconButton(
-                  onPressed: context.read<HomePaneVM>().startQuiz,
+                  onPressed: () {
+                    var homePaneVM = context.read<HomePaneVM>();
+                    homePaneVM.startQuiz(homePaneVM.preQuizVM.quiz!); // TODO
+                  },
                   icon: const Icon(Icons.start, size: 48),
                 ),
               ),
