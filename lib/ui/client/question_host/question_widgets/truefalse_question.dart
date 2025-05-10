@@ -22,6 +22,14 @@ class _TrueFalseQuestionState extends State<TrueFalseQuestion> {
   bool? value;
 
   @override
+  void didUpdateWidget(covariant TrueFalseQuestion oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.question != oldWidget.question) {
+      value = null;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return QuestionBase(
       question: widget.question,

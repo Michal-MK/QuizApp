@@ -22,6 +22,14 @@ class NumberQuestion extends StatefulWidget {
 class NumberQuestionState extends State<NumberQuestion> {
   final TextEditingController _controller = TextEditingController();
 
+    @override
+  void didUpdateWidget(covariant NumberQuestion oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.question != oldWidget.question) {
+      _controller.clear();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return QuestionBase(

@@ -1,27 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:quiz/model/db/model.dart';
 import 'package:quiz/model/db/question_type.dart';
-import 'package:quiz/ui/server/home/widgets/quiz_content/quiz_content_vm.dart';
+import 'package:quiz/theme/theme.dart';
 
 class QuizContentFooter extends StatelessWidget {
   const QuizContentFooter({
     super.key,
-    required this.vm,
+    required this.slide,
+    required this.slideCount,
+    required this.activeQuestion,
+    required this.forwardCallback,
+    required this.finishCallback,
   });
 
-  final QuizContentVM vm;
+  final int slide;
+  final int slideCount;
+  final Question? activeQuestion;
+  final VoidCallback forwardCallback;
+  final VoidCallback finishCallback;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(32.0),
       child: SizedBox(
-        height: 80,
+        height: 84,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Center(
               child: Text(
-                questionTypes[vm.activeQuestion?.type ?? 0].name,
+                questionTypes[activeQuestion?.type ?? 0].name,
                 style: const TextStyle(
                   fontSize: 42,
                   fontWeight: FontWeight.bold,
@@ -29,19 +38,29 @@ class QuizContentFooter extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            if (vm.slide + 1 != vm.questions.length * 2)
-              IconButton.filled(
+            if (slide + 1 != slideCount)
+              IconButton.outlined(
+                style: ButtonStyle(
+                  side: MaterialStateProperty.all(BorderSide(color: questionTypeColor(activeQuestion?.type ?? 0))),
+                ),
                 icon: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.arrow_forward_ios, size: 48),
-                    Text("${vm.slide + 1 == vm.questions.length * 2 ? '-' : vm.slide + 2}/${vm.questions.length * 2}"),
+                    const Icon(Icons.arrow_forward, size: 48),
+                    Text("${slide + 1 == slideCount ? '-' : slide + 2}/$slideCount"),
                   ],
                 ),
-                onPressed: () {
-                  vm.slide++;
-                },
-              ),
+                onPressed: forwardCallback
+              )
+              else 
+                IconButton(
+                  style: ButtonStyle(
+                    side: MaterialStateProperty.all(BorderSide(color: questionTypeColor(activeQuestion?.type ?? 0))),
+                  ),
+                  icon: const Icon(Icons.flag_rounded, size: 48),
+                  color: questionTypeColor(activeQuestion?.type ?? 0),
+                  onPressed: finishCallback,
+                ),
           ],
         ),
       ),

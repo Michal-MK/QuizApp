@@ -9,6 +9,8 @@ import 'package:quiz/ui/server/home/home_pane_content.dart';
 import 'package:quiz/ui/server/home/home_pane_vm.dart';
 import 'package:quiz/ui/server/question_management/question_management_content.dart';
 import 'package:quiz/ui/server/question_management/question_management_vm.dart';
+import 'package:quiz/ui/server/settings/settings_content.dart';
+import 'package:quiz/ui/server/settings/settings_vm.dart';
 
 class ServerHome extends StatefulWidget {
   const ServerHome({
@@ -43,8 +45,8 @@ class _ServerHomeState extends State<ServerHome> {
         },
         items: [
           PaneItem(
-            icon: const Icon(FluentIcons.repeat_all, size: 18),
-            title: const Text('Repeat'),
+            icon: const Icon(FluentIcons.play_resume, size: 18),
+            title: const Text('Play'),
             body: ChangeNotifierProvider<HomePaneVM>(
               create: (context) => DI.get(),
               child: const HomePaneContent(),
@@ -64,6 +66,14 @@ class _ServerHomeState extends State<ServerHome> {
             body: ChangeNotifierProvider<QuestionManagementVM>(
               create: (context) => DI.get(),
               child: const QuestionManagementContent(),
+            ),
+          ),
+                    PaneItem(
+            icon: const Icon(FluentIcons.settings, size: 18),
+            title: const Text('Settings'),
+            body: ChangeNotifierProvider<SettingsVM>(
+              create: (context) => DI.get(),
+              child: const SettingsContent(),
             ),
           ),
           PaneItem(

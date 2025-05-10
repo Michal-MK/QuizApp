@@ -11,10 +11,12 @@ import 'package:quiz/ui/server/debug/debug_vm.dart';
 import 'package:quiz/ui/server/home/home_pane_vm.dart';
 import 'package:quiz/services/localization_cubit.dart';
 import 'package:quiz/services/shared_preferences_storage.dart';
+import 'package:quiz/ui/server/home/widgets/answer_content/answers_content_vm.dart';
 import 'package:quiz/ui/server/home/widgets/home_content/home_vm.dart';
 import 'package:quiz/ui/server/home/widgets/pre_quiz_content/pre_quiz_content_vm.dart';
 import 'package:quiz/ui/server/home/widgets/quiz_content/quiz_content_vm.dart';
 import 'package:quiz/ui/server/question_management/question_management_vm.dart';
+import 'package:quiz/ui/server/settings/settings_vm.dart';
 
 class DI {
   static late GetIt instance;
@@ -32,13 +34,15 @@ class DI {
     getIt.registerSingleton(QuestionRPCService());
 
     getIt.registerFactory(() => HomeVM(get()));
-    getIt.registerFactory(() => PreQuizContentVM(get()));
-    getIt.registerFactory(() => QuizContentVM(get(), get()));
+    getIt.registerFactory(() => PreQuizContentVM(get(), get()));
+    getIt.registerFactory(() => QuizContentVM(get()));
+    getIt.registerFactory(() => AnswersContentVM());
 
-    getIt.registerFactory(() => HomePaneVM(get(), get(), get()));
+    getIt.registerFactory(() => HomePaneVM(get(), get(), get(), get()));
     getIt.registerFactory(() => AddQuestionVM(get()));
     getIt.registerFactory(() => QuestionManagementVM(get()));
     getIt.registerFactory(() => DebugVM(get(), get()));
+    getIt.registerFactory(() => SettingsVM(get()));
 
     getIt.registerFactory(() => HomeCubit());
   }

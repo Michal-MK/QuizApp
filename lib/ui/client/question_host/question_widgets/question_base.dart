@@ -27,6 +27,14 @@ class _QuestionBaseState extends State<QuestionBase> {
   MaterialStatesController controller = MaterialStatesController();
 
   @override
+  void didUpdateWidget(covariant QuestionBase oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.question != oldWidget.question) {
+      controller.update(MaterialState.disabled, false);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     Color questionColor = questionTypeColor(widget.question.type);
     return SafeArea(

@@ -2,9 +2,11 @@ import 'package:fluent_ui/fluent_ui.dart';
 
 class QPanel extends StatelessWidget {
   final Widget child;
+  final Color? tint;
 
   const QPanel({
     required this.child,
+    this.tint,
     super.key,
   });
 
@@ -16,7 +18,7 @@ class QPanel extends StatelessWidget {
       luminosityAlpha: 1.0,
       shadowColor: Colors.black,
       elevation: 20,
-      tint: Colors.white,
+      tint: tint ?? Colors.white,
       child: child,
     );
   }

@@ -34,16 +34,21 @@ class ServerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<LocalizationCubit>(
-      create: (context) => DI.get(),
-      child: const FluentApp(
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: ServerHome(),
+      create: (context) => DI.get()..init(),
+      child: BlocBuilder<LocalizationCubit, Locale>(
+        builder: (context, state) {
+          return FluentApp(
+            locale: state,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: const ServerHome(),
+          );
+        },
       ),
     );
   }
@@ -55,7 +60,7 @@ class ClientApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<LocalizationCubit>(
-      create: (context) => DI.get(),
+      create: (context) => DI.get()..init(),
       child: BlocBuilder<LocalizationCubit, Locale>(
         builder: (context, state) {
           return MaterialApp(

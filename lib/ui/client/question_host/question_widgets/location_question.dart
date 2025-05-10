@@ -12,7 +12,7 @@ class LocationQuestion extends StatefulWidget {
   const LocationQuestion({
     required this.question,
     required this.client,
-    super.key, 
+    super.key,
   });
 
   @override
@@ -23,6 +23,23 @@ class _LocationQuestionState extends State<LocationQuestion> {
   late GoogleMapController controller;
 
   final markers = <Marker>{};
+
+  @override
+  void didUpdateWidget(covariant LocationQuestion oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.question != oldWidget.question) {
+      markers.clear();
+      controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          const CameraPosition(
+            target: LatLng(50.642230, 15.253824),
+            zoom: 16,
+          ),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

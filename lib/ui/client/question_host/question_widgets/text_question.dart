@@ -22,6 +22,14 @@ class _TextQuestionState extends State<TextQuestion> {
   final TextEditingController _controller = TextEditingController();
 
   @override
+  void didUpdateWidget(covariant TextQuestion oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.question != oldWidget.question) {
+      _controller.clear();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return QuestionBase(
       question: widget.question,

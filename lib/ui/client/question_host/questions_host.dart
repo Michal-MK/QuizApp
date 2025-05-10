@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nsd/nsd.dart';
 import 'package:quiz/comms/comms_client.dart';
+import 'package:quiz/definitions/question_type.dart';
 import 'package:quiz/model/db/model.dart';
 import 'package:quiz/ui/client/question_host/question_widgets/location_question.dart';
 import 'package:quiz/ui/client/question_host/question_widgets/multichoice_question.dart';
@@ -79,15 +80,15 @@ class _QuestionsHostState extends State<QuestionsHost> with WidgetsBindingObserv
 
   Widget buildQuestion(Question question, CommunicationClient client) {
     switch (question.type) {
-      case 0:
+      case QuestionTypeNum.TextQuestion:
         return TextQuestion(question: question, client: client);
-      case 1:
+      case QuestionTypeNum.NumberQuestion:
         return NumberQuestion(question: question, client: client);
-      case 2:
+      case QuestionTypeNum.MultichoiceQuestion:
         return MultichoiceQuestion(question: question, client: client);
-      case 3:
+      case QuestionTypeNum.TrueFalseQuestion:
         return TrueFalseQuestion(question: question, client: client);
-      case 4:
+      case QuestionTypeNum.LocationQuestion:
         return LocationQuestion(question: question, client: client);
       default:
         return Center(

@@ -54,6 +54,12 @@ class QuestionRepo {
     );
   }
 
+  Future<void> unlinkFromQuiz(int quizId, int questionId) async {
+    await db.quizQuestions.deleteWhere(
+      (tbl) => tbl.quizId.equals(quizId) & tbl.questionId.equals(questionId),
+    );
+  }
+
   Future<List<Question>> getQuestions() {
     return db.questions.select().get();
   }

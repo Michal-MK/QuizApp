@@ -44,4 +44,12 @@ class QuizRepo {
   Future<Quiz?> getById(int quizId) {
     return (db.quizes.select()..where((tbl) => tbl.id.equals(quizId))).getSingleOrNull();
   }
+
+  Future<List<Question>> getLinkedQuestions(int quizId) {
+    final quizQuestions = (db.quizQuestions.select()..where((tbl) => tbl.quizId.equals(quizId))).get();
+    final questions = quizQuestions.then((value) {
+      return (db.questions.select()..where((tbl) => tbl.id.isIn(value.map((e) => e.questionId)))).get();
+    });
+    return questions;
+  }
 }

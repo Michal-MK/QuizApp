@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:quiz/definitions/question_type.dart';
 import 'package:quiz/services/shared_preferences_storage.dart';
 
 class LocalizationCubit extends Cubit<Locale> {
@@ -45,5 +46,22 @@ class LocalizationCubit extends Cubit<Locale> {
       return initialLocale;
     }
     return const Locale('en');
+  }
+
+  String questionNameForType(int type) {
+    switch (type) {
+      case QuestionTypeNum.TextQuestion:
+        return l.type_text;
+      case QuestionTypeNum.NumberQuestion:
+        return l.type_number;
+      case QuestionTypeNum.TrueFalseQuestion:
+        return l.type_truefalse;
+      case QuestionTypeNum.MultichoiceQuestion:
+        return l.type_multichoice;
+      case QuestionTypeNum.LocationQuestion:
+        return l.type_location;
+      default:
+        return "";
+    }
   }
 }

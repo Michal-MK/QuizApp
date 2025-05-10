@@ -1,3 +1,4 @@
+import 'package:quiz/definitions/question_type.dart';
 import 'package:quiz/proto_gen/questions.pbenum.dart';
 
 class AnnotatedQuestionType {
@@ -15,9 +16,9 @@ List<AnnotatedQuestionType> questionTypes = const [
 ];
 
 Map<int, QuestionType> questionTypesRev = {
-  0: QuestionType.text,
-  1: QuestionType.number,
-  2: QuestionType.multipleChoice,
-  3: QuestionType.trueFalse,
-  4: QuestionType.location,
+  QuestionTypeNum.TextQuestion: QuestionType.text,
+  QuestionTypeNum.NumberQuestion: QuestionType.number,
+  QuestionTypeNum.MultichoiceQuestion: QuestionType.multipleChoice,
+  QuestionTypeNum.TrueFalseQuestion: QuestionType.trueFalse,
+  QuestionTypeNum.LocationQuestion: QuestionType.location,
 };

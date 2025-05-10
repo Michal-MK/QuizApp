@@ -18,7 +18,7 @@ class QuizContentBody extends StatelessWidget {
     return Column(
       children: [
         Text(
-          vm.activeQuestion?.question ?? "Nebyla vybrána žádná otázka",
+          vm.activeQuestion?.question.split('----')[0] ?? "Nebyla vybrána žádná otázka",
           textAlign: TextAlign.center,
           style: const TextStyle(
             fontSize: 48,

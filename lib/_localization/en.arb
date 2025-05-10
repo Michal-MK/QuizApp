@@ -3,5 +3,10 @@
   "app_name": "Quiz App",
   "home_available_servers": "Available servers",
   "home_client_name": "Your nickname",
-  "home_client_name_validation_error": "Nickname must be at least 3 characters long"
+  "home_client_name_validation_error": "Nickname must be at least 3 characters long",
+  "type_location": "Location",
+  "type_multichoice": "Multi-choice",
+  "type_number": "Number",
+  "type_text": "Text",
+  "type_truefalse": "True/False"
 }

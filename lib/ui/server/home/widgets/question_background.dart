@@ -1,6 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:quiz/model/db/model.dart';
-import 'package:quiz/theme/theme.dart';
+import 'package:quiz/ui/common/gradients.dart';
 
 class QuestionBackground extends StatelessWidget {
   final Widget child;
@@ -16,14 +16,7 @@ class QuestionBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: RadialGradient(
-          colors: [
-            questionTypeColor(activeQuestion?.type ?? 0),
-            Colors.white,
-          ],
-          center: Alignment.topRight,
-          radius: 1,
-        ),
+        gradient: questionGradient(activeQuestion?.type ?? 0),
       ),
       child: child,
     );

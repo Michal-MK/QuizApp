@@ -13,9 +13,9 @@ class DebugVM extends ChangeNotifier {
   Future<void> seedData() async {
     
     Quiz q = Quiz(
-      quizName: "Sample Quiz",
+      quizName: "Sample Quiz for Debugging",
       author: "Admin",
-      description: "This is a sample quiz.",
+      description: "This is a sample quiz. That will test the app and your basic knowledge.",
       dateCreated: DateTime.now().millisecondsSinceEpoch,
     );
 
@@ -186,6 +186,16 @@ class DebugVM extends ChangeNotifier {
     final qs = await questionRepo.getQuestions();
     for (var question in qs) {
       await questionRepo.delete(question.id!);
+    }
+    final quizes = await quizRepo.getQuizes();
+    for (var quiz in quizes) {
+      await quizRepo.delete(quiz.id!);
+    }
+    for (var quiz in quizes) {
+      final linkedQuestions = await quizRepo.getLinkedQuestions(quiz.id!);
+      for (var question in linkedQuestions) {
+        await questionRepo.unlinkFromQuiz(quiz.id!, question.id!);
+      }
     }
     notifyListeners();
   }
